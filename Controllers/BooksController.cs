@@ -66,19 +66,19 @@ namespace Biblioteca.Controllers
         {
             if (ModelState.IsValid)
             {
-                var archivos = HttpContext.Request.Form.Files;
-                if (archivos != null && archivos.Count > 0)
+                var archive = HttpContext.Request.Form.Files;
+                if (archive != null && archive.Count > 0)
                 {
-                    var archivoFoto = archivos[0];
-                    var pathDestino = Path.Combine(env.WebRootPath, "assets/books");
-                    if (archivoFoto.Length > 0)
+                    var archivePhoto = archive[0];
+                    var pathDestiny = Path.Combine(env.WebRootPath, "assets/books");
+                    if (archivePhoto.Length > 0)
                     {
-                        var archivoDestino = Guid.NewGuid().ToString().Replace("-", "") + Path.GetExtension(archivoFoto.FileName);
+                        var archiveDestiny = Guid.NewGuid().ToString().Replace("-", "") + Path.GetExtension(archivePhoto.FileName);
 
-                        using (var filestream = new FileStream(Path.Combine(pathDestino, archivoDestino), FileMode.Create))
+                        using (var filestream = new FileStream(Path.Combine(pathDestiny, archiveDestiny), FileMode.Create))
                         {
-                            archivoFoto.CopyTo(filestream);
-                            book.photo = archivoDestino;
+                            archivePhoto.CopyTo(filestream);
+                            book.photo = archiveDestiny;
                         };
 
                     }
@@ -124,27 +124,27 @@ namespace Biblioteca.Controllers
             {
                 try
                 {
-                    var archivos = HttpContext.Request.Form.Files;
-                    if (archivos != null && archivos.Count > 0)
+                    var archive = HttpContext.Request.Form.Files;
+                    if (archive != null && archive.Count > 0)
                     {
-                        var archivoFoto = archivos[0];
-                        var pathDestino = Path.Combine(env.WebRootPath, "assets/books");
-                        if (archivoFoto.Length > 0)
+                        var archivePhoto = archive[0];
+                        var pathDestiny = Path.Combine(env.WebRootPath, "assets/books");
+                        if (archivePhoto.Length > 0)
                         {
-                            var archivoDestino = Guid.NewGuid().ToString().Replace("-", "") + Path.GetExtension(archivoFoto.FileName);
+                            var archiveDestiny = Guid.NewGuid().ToString().Replace("-", "") + Path.GetExtension(archivePhoto.FileName);
 
                             if (!string.IsNullOrEmpty(book.photo))
                             {
-                                string fotoAnterior = Path.Combine(pathDestino, book.photo);
-                                if (System.IO.File.Exists(fotoAnterior))
-                                    System.IO.File.Delete(fotoAnterior);
+                                string previousPhoto = Path.Combine(pathDestiny, book.photo);
+                                if (System.IO.File.Exists(previousPhoto))
+                                    System.IO.File.Delete(previousPhoto);
                             }
 
-                            using (var filestream = new FileStream(Path.Combine(pathDestino, archivoDestino), FileMode.Create))
+                            using (var filestream = new FileStream(Path.Combine(pathDestiny, archiveDestiny), FileMode.Create))
                             {
-                                archivoFoto.CopyTo(filestream);
-                                book.photo = archivoDestino;
-                            };
+                                archivePhoto.CopyTo(filestream);
+                                book.photo = archiveDestiny;
+                            }
                         }
                     }
                     _context.Update(book);
